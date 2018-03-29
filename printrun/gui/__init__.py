@@ -242,12 +242,16 @@ class MainWindow(wx.Frame):
             rightpanel.SetSizer(rightsizer)
             self.splitterwindow = wx.SplitterWindow(rightpanel, style = wx.SP_3D)
             self.splitterwindow.SetMinimumPaneSize(150)
-            self.splitterwindow.SetSashGravity(0.8)
+            self.splitterwindow.SetSashGravity(0.5)
             rightsizer.Add(self.splitterwindow, 1, wx.EXPAND)
             vizpanel = self.newPanel(self.splitterwindow)
             logpanel = self.newPanel(self.splitterwindow)
-            self.splitterwindow.SplitVertically(vizpanel, logpanel,
-                                                self.settings.last_sash_position)
+            if self.build_dimensions_list[0] > self.build_dimensions_list[1]*1.25:
+                self.splitterwindow.SplitHorizontally(vizpanel, logpanel,
+                                                    self.settings.last_sash_position)
+            else:
+                self.splitterwindow.SplitVertically(vizpanel, logpanel,
+                                                      self.settings.last_sash_position)
             self.splitterwindow.shrinked = False
         else:
             vizpanel = self.newPanel(lowerpanel)
@@ -281,6 +285,7 @@ class MainWindow(wx.Frame):
         # the toolbar height and the statusbar/menubar sizes
         minsize = [0, 0]
         minsize[0] = self.lowersizer.GetMinSize()[0]  # lower pane
+        minsize[0] = max(minsize[0], 960)
         minsize[1] = max(viz_pane.GetMinSize()[1], controls_sizer.GetMinSize()[1])
         minsize[1] += self.toolbarsizer.GetMinSize()[1]  # toolbar height
         displaysize = wx.DisplaySize()

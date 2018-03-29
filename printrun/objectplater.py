@@ -87,7 +87,7 @@ class PlaterPanel(wx.Panel):
         if build_dimensions:
             self.build_dimensions = build_dimensions
         else:
-            self.build_dimensions = [200, 200, 100, 0, 0, 0]
+            self.build_dimensions = [229, 229, 229, 0, 0, 0]
 
     def set_viewer(self, viewer):
         # Patch handle_rotation on the fly

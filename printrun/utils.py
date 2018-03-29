@@ -200,7 +200,7 @@ def parse_build_dimensions(bdim):
     # "XXX,YYY,ZZZ+xxx+yyy-zzz"
     # etc
     bdl = re.findall("([-+]?[0-9]*\.?[0-9]*)", bdim)
-    defaults = [200, 200, 100, 0, 0, 0, 0, 0, 0]
+    defaults = [229, 229, 229, 0, 0, 0, 0, 0, 0]
     bdl = [b for b in bdl if b]
     bdl_float = [float(value) if value else defaults[i] for i, value in enumerate(bdl)]
     if len(bdl_float) < len(defaults):
@@ -221,6 +221,21 @@ def hexcolor_to_float(color, components):
                  for i in range(0, numel, ndigits))
 
 def check_rgb_color(color):
+    if color == "White":
+            color = "#ffffff"
+    if color == "Gray":
+            color = "#7a7a7a"
+    if color == "Red":
+            color = "#bf2020"
+    if color == "Blue":
+            color = "#342fb7"
+    if color == "Purple":
+            color = "#741a9b"
+    if color == "Orange":
+            color = "#e28a0d"
+    if color == "Green":
+            color = "#329e1f" 
+
     if len(color[1:]) % 3 != 0:
         ex = ValueError(_("Color must be specified as #RGB"))
         ex.from_validator = True
